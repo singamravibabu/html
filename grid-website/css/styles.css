@@ -1,0 +1,226 @@
+/* ========== Base Reset & Typography ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  line-height: 1.5;
+  color: #222;
+  background: #f7f8fb;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ========== Layout Grid ========== */
+.site-grid {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  gap: 1rem;
+  padding: 1rem;
+}
+.site-header { grid-area: header; }
+.site-main { grid-area: main; }
+.site-footer { grid-area: footer; }
+
+/* ========== Header ========== */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.site-header .brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0b74de;
+}
+.site-nav a {
+  margin-left: 1rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  color: #1f2937;
+}
+.site-nav a:hover { background: rgba(0,0,0,0.05); }
+.site-nav a.active {
+  background: rgba(11,116,222,0.1);
+  font-weight: 600;
+}
+.site-nav a:active {
+  background: rgba(11,116,222,0.1);
+  font-weight: 600;
+}
+/* ========== Footer ========== */
+.site-footer {
+  padding: 0.8rem 1rem;
+  background: white;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+/* ========== Skip Link ========== */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  width: auto;
+  height: auto;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* ========== Home Page ========== */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  grid-template-areas: "content image";
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+.hero .hero-content { grid-area: content; }
+.hero .hero-image { grid-area: image; }
+.hero img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.hero h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.hero p {
+  margin-bottom: 0.8rem;
+}
+.cta {
+  display: inline-block;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  background: #0b74de;
+  color: white;
+  font-weight: 600;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.feature {
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* ========== About Page ========== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+.about-aside .card {
+  padding: 1rem;
+  border-radius: 6px;
+  background: #fafafa;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.about-aside ul {
+  list-style: disc inside;
+  margin-top: 0.5rem;
+}
+
+/* ========== Services Page ========== */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.proj {
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* ========== Contact Page ========== */
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+.contact-form label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.35rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+.contact-form .full {
+  grid-column: 1 / -1;
+}
+.contact-form button {
+  grid-column: 1 / -1;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  background: #0b74de;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background: #0959a8;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 800px) {
+  .hero { grid-template-columns: 1fr; }
+  .features { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-form { grid-template-columns: 1fr; }
+  .site-nav a { margin-left: 0.5rem; }
+}
