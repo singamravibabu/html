@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Your Name — Portfolio</title>
+<style>
+  /* ---------- Variables & base ---------- */
+  :root{
+    --bg: #0d1c31;
+    --card: #071021;
+    --muted: #98a0b3;
+    --accent: #4f46e5;
+    --glass: rgba(255,255,255,0.04);
+    --radius: 12px;
+    --gap: 18px;
+    --max-width: 1100px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, #0b1c3b 0%, var(--bg) 60%);
+    color: #e6eef8;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:32px 20px;
+    display:grid;
+    place-items:center;
+  }
+
+  /* ---------- Outer page grid (centers content) ---------- */
+  .page {
+    width:100%;
+    max-width: var(--max-width);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: calc(var(--gap) * 1.3);
+    align-items:start;
+  }
+
+  header.site-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--gap);
+    align-items:center;
+  }
+
+  .brand {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .brand .title {
+    font-weight:700;
+    letter-spacing: -0.02em;
+    font-size:1.15rem;
+  }
+  .brand .subtitle { color:var(--muted); font-size:0.9rem; }
+
+  nav.site-nav {
+    display: grid;
+    grid-auto-flow: column;
+    gap:12px;
+    align-items:center;
+  }
+  nav.site-nav a {
+    color:var(--muted);
+    text-decoration:none;
+    padding:8px 12px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:0.95rem;
+  }
+  nav.site-nav a:hover { color: white; background: rgba(255,255,255,0.04); }
+
+  /* ---------- Main layout uses grid-template-areas ---------- */
+  main.grid-main {
+    display:grid;
+    gap: var(--gap);
+    grid-template-columns: 360px 1fr;
+    grid-template-areas:
+      "hero  hero"
+      "sidebar content";
+    align-items:start;
+  }
+
+  /* We'll put Hero (which contains photo and name) in a sidebar-like card */
+  .hero {
+    grid-area: hero;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), var(--glass));
+    border-radius: var(--radius);
+    padding:20px;
+    display:grid;
+    grid-template-columns: 160px 1fr;
+    gap:16px;
+    align-items:center;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Personal photo — make it circular and responsive */
+  .photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow:hidden;
+    display:block;
+    place-self:center;
+    border: 2px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, #091225, #0b1220);
+  }
+  .photo img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  .hero .intro {
+    display:grid;
+    gap:6px;
+  }
+  .hero h1 {
+    margin:0;
+    font-size:1.45rem;
+  }
+  .hero p { margin:0; color:var(--muted); }
+
+  /* Small profile stats under hero */
+  .stats {
+    margin-top:12px;
+    display:grid;
+    grid-auto-flow:column;
+    gap:10px;
+    align-items:center;
+  }
+  .stat {
+    background: rgba(255,255,255,0.02);
+    padding:8px 10px;
+    border-radius:10px;
+    text-align:center;
+  }
+  .stat .num { font-weight:700; font-size:1rem; }
+  .stat .label { color:var(--muted); font-size:0.82rem; }
+
+  /* Sidebar: about + contact fields */
+  .sidebar {
+    grid-area: sidebar;
+    display:grid;
+    gap:var(--gap);
+    grid-template-rows: auto;
+  }
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:16px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .about h2, .projects h2, .contact h2 { margin:0 0 10px 0; font-size:1.05rem; }
+  .about p { margin:0; color:var(--muted); line-height:1.5; }
+
+  /* Projects area (content) */
+  .content {
+    grid-area: content;
+    display:grid;
+    gap:var(--gap);
+    grid-template-rows: auto;
+  }
+
+  /* Project cards: use grid inside each card for image + text */
+  .projects-grid {
+    display:grid;
+    gap:14px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  .project {
+    display:grid;
+    grid-template-rows: 140px auto;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .project .thumb {
+    background:linear-gradient(180deg,#0b1220,#071027);
+    display:grid;
+    place-items:center;
+    color:var(--muted);
+    font-weight:700;
+  }
+  .project .meta { padding:12px; display:grid; gap:6px; }
+  .project .meta h3 { margin:0; font-size:1rem; }
+  .project .meta p { margin:0; color:var(--muted); font-size:0.92rem; }
+
+  /* Contact form — use grid for layout & labels (no flex) */
+  form.contact-form {
+    display:grid;
+    gap:10px;
+    grid-template-columns: 120px 1fr;
+    align-items:center;
+  }
+  form.contact-form label { justify-self:end; color:var(--muted); font-weight:600; }
+  form.contact-form .full { grid-column: 1 / -1; }
+  input[type="text"], input[type="email"], textarea {
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.04);
+    background: transparent;
+    color:inherit;
+    font:inherit;
+    min-height:40px;
+  }
+  textarea { min-height:100px; resize:vertical; padding-top:10px; }
+
+  .cta {
+    display:grid;
+    grid-column: 1 / -1;
+    justify-content:end; /* uses grid alignment */
+  }
+  .btn {
+    background: linear-gradient(90deg,var(--accent), #7c3aed);
+    color:white;
+    padding:10px 14px;
+    border-radius:10px;
+    border:0;
+    cursor:pointer;
+    font-weight:700;
+    box-shadow: 0 6px 18px rgba(79,70,229,0.18);
+  }
+
+  /* ---------- Responsive rearrangement using Grid only ---------- */
+  @media (max-width:980px) {
+    main.grid-main {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "hero"
+        "sidebar"
+        "content";
+    }
+
+    .hero { grid-template-columns: 120px 1fr; }
+    .photo { width:120px; height:120px; }
+    form.contact-form { grid-template-columns: 1fr; }
+    form.contact-form label { justify-self:start; }
+    .cta { justify-content:start; }
+  }
+
+  /* tiny screens: stack hero vertically */
+  @media (max-width:420px){
+    .hero { grid-template-columns: 1fr; text-align:center; }
+    .photo { margin:0 auto; width:120px; height:120px; }
+    .brand .title { font-size:1rem; }
+    nav.site-nav { display:none; } /* hide nav for demo; add mobile menu if needed */
+  }
+
+  /* small utility */
+  a.link-muted { color:var(--muted); text-decoration:none; font-weight:600; }
+  .small { font-size:0.85rem; color:var(--muted); }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="site-header">
+      <div class="brand">
+        <div>
+          <div class="title">Your Name</div>
+          <div class="subtitle">Frontend Developer · Designer · Creator</div>
+        </div>
+      </div>
+
+      <nav class="site-nav">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="grid-main">
+
+      <section class="hero card">
+        <div class="photo">
+          <img src="profile.png" alt="Your Name smiling portrait">
+        </div>
+
+        <div class="intro">
+          <h1 id="hero-title">Hello — I'm Your Name</h1>
+          <p class="small">I build clear, usable interfaces and craft beautiful front-end experiences. I love JavaScript, design systems, and performance.</p>
+
+          <div class="stats">
+            <div class="stat"><div class="num">6+</div><div class="label">Years</div></div>
+            <div class="stat"><div class="num">20+</div><div class="label">Projects</div></div>
+            <div class="stat"><div class="num">Open</div><div class="label">To Work</div></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="card about" id="about">
+          <h2>About me</h2>
+          <p>I am a UI-focused developer building accessible, high-performance web apps. I enjoy translating complex problems into simple interfaces and writing maintainable code.</p>
+        </div>
+
+        <div class="card contact" id="contact">
+          <h2>Contact</h2>
+          <p class="small">Email: <a class="link-muted" href="mailto:you@example.com">you@example.com</a></p>
+          <p class="small">Location: Your City, Country</p>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="card projects" id="projects">
+          <h2>Selected projects</h2>
+
+          <div class="projects-grid">
+            <article class="project">
+              <div class="thumb">Project 1</div>
+              <div class="meta">
+                <h3 id="p1">Dashboard UI</h3>
+                <p class="small">A responsive analytics dashboard built with Vanilla JS and Grid layout for complex data panels.</p>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="thumb">Project 2</div>
+              <div class="meta">
+                <h3 id="p2">E-commerce Theme</h3>
+                <p class="small">Fast, accessible shopping experience with progressive enhancement and good SEO practices.</p>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="thumb">Project 3</div>
+              <div class="meta">
+                <h3 id="p3">Design System</h3>
+                <p class="small">A component library with tokens, docs, and examples that scales across teams.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Get in touch</h2>
+
+          <form class="contact-form" action="#" method="post">
+            <label for="fname">Name</label>
+            <input id="fname" name="name" type="text" placeholder="Your full name" required>
+
+            <label for="emailf">Email</label>
+            <input id="emailf" name="email" type="email" placeholder="you@example.com" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Say hi — what do you want to build?" rows="5"></textarea>
+
+            <div class="cta">
+              <button class="btn" type="submit">Send message</button>
+            </div>
+          </form>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer small" style="text-align:center; opacity:0.9;">
+      © <span id="year"></span> Your Name — Built with HTML & CSS Grid
+    </footer>
+  </div>
+
+<script>
+  // small nicety: current year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
